@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<linker>
+	<!-- App -->
+	<assembly fullname="MyAppBeta1" preserve="All" />
+	<!-- Avalonia Themes -->
+	<assembly fullname="Avalonia.Themes.Fluent" preserve="All" />
+</linker>

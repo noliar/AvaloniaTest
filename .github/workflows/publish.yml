@@ -1,0 +1,30 @@
+name: NativeAOT Build
+
+on:
+  push:
+    branches: [ test ]
+
+jobs:
+  publish-with-net9:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.1xx
+        dotnet-quality: daily
+    - name: Publish
+      run: dotnet publish -r win-x64 -c Release -f net9.0
+
+  publish-with-net8:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.1xx
+        dotnet-quality: daily
+    - name: Publish
+      run: dotnet publish -r win-x64 -c Release -f net8.0
