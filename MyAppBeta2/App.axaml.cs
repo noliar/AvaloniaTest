@@ -6,6 +6,23 @@ namespace MyAppBeta2;
 
 public partial class App : Application
 {
+    public App()
+    {
+        System.AppDomain.CurrentDomain.UnhandledException += App_UnhandledException;
+    }
+    
+    private void App_UnhandledException(object sender, System.UnhandledExceptionEventArgs e)
+    {
+        if (e.ExceptionObject is System.Exception ex)
+        {
+            System.IO.File.WriteAllText("error.txt", $"error: {ex.Message}\n{ex.StackTrace}");
+        }
+        else
+        {
+            System.IO.File.WriteAllText("error.txt", e.ExceptionObject.ToString());
+        }
+    }
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);

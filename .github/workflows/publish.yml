@@ -5,7 +5,7 @@ on:
     branches: [ test ]
 
 jobs:
-  publish-with-net9:
+  publish-beta1-with-net9:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
@@ -15,9 +15,17 @@ jobs:
         dotnet-version: 9.0.1xx
         dotnet-quality: daily
     - name: Publish
-      run: dotnet publish -r win-x64 -c Release -f net9.0
+      run: dotnet publish MyAppBeta1 -r win-x64 -c Release -f net9.0
+    - name: Run
+      working-directory: .\MyAppBeta1\bin\Release\net9.0\win-x64\publish
+      run: |
+        .\MyAppBeta1.exe
+    - uses: actions/upload-artifact@v4
+      with:
+        name: publish-beta1-with-net9-error
+        path: MyAppBeta1\bin\Release\net9.0\win-x64\publish\error.txt
 
-  publish-with-net8:
+  publish-beta2-with-net9:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
@@ -27,4 +35,52 @@ jobs:
         dotnet-version: 9.0.1xx
         dotnet-quality: daily
     - name: Publish
-      run: dotnet publish -r win-x64 -c Release -f net8.0
+      run: dotnet publish MyAppBeta2 -r win-x64 -c Release -f net9.0
+    - name: Run
+      working-directory: .\MyAppBeta2\bin\Release\net9.0\win-x64\publish
+      run: |
+        .\MyAppBeta2.exe
+    - uses: actions/upload-artifact@v4
+      with:
+        name: publish-beta2-with-net9-error
+        path: MyAppBeta2\bin\Release\net9.0\win-x64\publish\error.txt
+
+  publish-beta1-with-net8:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.1xx
+        dotnet-quality: daily
+    - name: Publish
+      run: dotnet publish MyAppBeta1 -r win-x64 -c Release -f net8.0
+    - name: Run
+      working-directory: .\MyAppBeta1\bin\Release\net8.0\win-x64\publish
+      run: |
+        .\MyAppBeta1.exe
+    - uses: actions/upload-artifact@v4
+      with:
+        name: publish-beta1-with-net8-error
+        path: MyAppBeta1\bin\Release\net8.0\win-x64\publish\error.txt
+
+  publish-beta2-with-net8:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.1xx
+        dotnet-quality: daily
+    - name: Publish
+      run: dotnet publish MyAppBeta2 -r win-x64 -c Release -f net8.0
+    - name: Run
+      working-directory: .\MyAppBeta2\bin\Release\net8.0\win-x64\publish
+      run: |
+        .\MyAppBeta2.exe
+    - uses: actions/upload-artifact@v4
+      with:
+        name: publish-beta2-with-net8-error
+        path: MyAppBeta2\bin\Release\net8.0\win-x64\publish\error.txt
